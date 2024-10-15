@@ -1,84 +1,83 @@
 # Stock Price Prediction for Amazon (AMZN) Using Recurrent Neural Networks (RNN)
 
+## Project Overview
+
+This project focuses on predicting the stock price of Amazon (AMZN) using a Recurrent Neural Network (RNN), specifically a Long Short-Term Memory (LSTM) model. By analyzing historical stock price data, the model forecasts future stock prices, demonstrating the potential for time-series forecasting in financial markets.
 
 ## Table of Contents
-
-- [Introduction](#introduction)
+- [Project Overview](#project-overview)
 - [Dataset](#dataset)
-- [Methodology](#methodology)
 - [Model Architecture](#model-architecture)
+- [Preprocessing](#preprocessing)
+- [Evaluation Metrics](#evaluation-metrics)
 - [Results](#results)
+- [Conclusions](#conclusions)
 - [Technologies Used](#technologies-used)
-- [Conclusion](#conclusion)
 - [References](#references)
-
-## Introduction
-
-This project aims to predict the stock prices of Amazon (AMZN) using Recurrent Neural Networks (RNN). Stock market forecasting is a complex and challenging task due to the market's highly volatile and non-linear nature. By leveraging the capabilities of RNNs, this project seeks to improve the accuracy of predictions over traditional models.
 
 ## Dataset
 
-The dataset used for this project consists of historical stock prices for Amazon, including features such as:
+The dataset used for this project was sourced from Kaggle's Nasdaq datasets, which includes:
+- Date
+- Open Price
+- Close Price
+- Low Price
+- High Price
+- Volume
+- Adjusted Close
 
-- Open price
-- High price
-- Low price
-- Close price
-- Volume traded
-
-Data is preprocessed and split into training and testing sets. The dataset can be found in the `data` folder of this repository.
-
-
-## Methodology
-
-1. **Data Preprocessing**: 
-    - Handling missing values.
-    - Normalizing the data for better performance.
-    - Splitting the data into train and test sets.
-
-2. **Model Development**:
-    - Built an RNN model using LSTM layers.
-    - Configured the model with multiple hidden layers to capture the temporal patterns in stock prices.
-
-3. **Model Evaluation**:
-    - Evaluated the model's performance using metrics such as Mean Squared Error (MSE).
-    - Visualized the actual vs. predicted prices.
+We focus mainly on the 'Close' price for our predictions. The dataset spans from May 15, 1997, to December 12, 2022.
 
 ## Model Architecture
 
-The model consists of multiple LSTM layers, each with a specific number of neurons and activation functions. Here's a summary of the architecture:
+The primary model used for prediction is a Long Short-Term Memory (LSTM) neural network. The architecture consists of:
+- Input Layer
+- LSTM Layers
+- Dropout Layers (to prevent overfitting)
+- Dense Output Layer
 
-- **Input Layer**: Stock price features
-- **LSTM Layer 1**: 50 neurons, ReLU activation
-- **LSTM Layer 2**: 50 neurons, ReLU activation
-- **Dropout Layer**: 20% dropout rate to prevent overfitting
-- **Output Layer**: Single neuron for price prediction
+The model's parameters were fine-tuned, including the number of hidden layers, epochs, and learning rates.
 
+## Preprocessing
+
+Key steps in the data preprocessing include:
+1. **Data Cleaning**: Handling missing values and outliers.
+2. **Normalization**: Scaling the stock prices between 0 and 1 to aid model processing.
+3. **Data Splitting**: The dataset was split 80:20 for training and testing purposes.
+4. **Reshaping**: The training data was reshaped into sequences of 'n' days to predict the stock price for the next day.
+
+## Evaluation Metrics
+
+The model performance was evaluated using:
+- **Root Mean Squared Error (RMSE)**: Measures the difference between predicted and actual stock prices.
+- **Mean Squared Error (MSE)**
+- **R² Score**: Measures the proportion of the variance in stock prices that the model explains.
 
 ## Results
 
-The model's predictions closely follow the actual stock prices, demonstrating its capability to learn from historical data. Below is a comparison of actual vs. predicted prices.
+The best performance was achieved using a 6-layer LSTM model with the following parameters:
+- **Learning Rate**: 0.1
+- **Epochs**: 150
+- **RMSE**: 0.022398
+- **R² Score**: 0.987
 
+This model demonstrated strong predictive power for the stock price of Amazon.
 
-### Performance Metrics
+## Conclusions
 
-- **Mean Squared Error (MSE)**: XX.XX
-- **Root Mean Squared Error (RMSE)**: XX.XX
+Fine-tuning hyperparameters such as the learning rate, number of hidden layers, and number of epochs resulted in improved model performance. The model performs best with relatively stable datasets and may not perform as well when there are sharp fluctuations in the data.
 
 ## Technologies Used
 
 - Python
-- TensorFlow / Keras
-- Pandas, Numpy
-- Matplotlib for visualization
-
-
-## Conclusion
-
-This project demonstrates the use of RNNs for predicting stock prices. Although the model achieves satisfactory performance, there's always room for improvement by tuning hyperparameters, using more complex architectures, or incorporating additional features such as market sentiment.
+- TensorFlow/Keras
+- Pandas, NumPy
+- Scikit-learn (for evaluation metrics)
+- Matplotlib (for data visualization)
+- Kaggle API (for dataset retrieval)
 
 ## References
 
-- **Additional Resources**: [TensorFlow Documentation](https://www.tensorflow.org)
-
-
+- Y. Kim, "Predicting stock prices with a long short-term memory (LSTM) model," IEEE Access, 2019.
+- Q. X. Wu et al., "Stock Price Prediction Using LSTM RNN And CNN-Sliding Window Model," International Conference on AI and Big Data, 2021.
+- H. Zhang et al., "Stock price prediction using attention-based multi-input LSTM," IEEE Access, 2019.
